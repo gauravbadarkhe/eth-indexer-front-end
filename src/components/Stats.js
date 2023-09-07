@@ -17,6 +17,10 @@ export default function Stats() {
       .then((response) => response.json())
       .then((data) => {
         if (data.latestBlock) data["latestBlock"] = data.latestBlock.number;
+        if (data.percentageComplition)
+          data[
+            "percentageComplition"
+          ] = `${data.percentageComplition}% Block Chain Has been Synced`;
         setState(data);
         setLoading(false);
       })

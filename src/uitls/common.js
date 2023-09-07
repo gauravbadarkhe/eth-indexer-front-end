@@ -1,4 +1,4 @@
-const endPoint = "http://localhost:3001";
+const endPoint = "https://plankton-app-ihatc.ondigitalocean.app"; //"http://localhost:3001";
 
 export const API = {
   LIVE_EVENTS: `${endPoint}/events`,

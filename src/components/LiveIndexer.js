@@ -9,7 +9,10 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+
+import ViewInArIcon from "@mui/icons-material/ViewInAr";
 import { styled } from "@mui/material";
+import { API } from "../uitls/common";
 
 export default function LiveIndexer() {
   const [blocks, setBlock] = useState([]);
@@ -37,7 +40,7 @@ export default function LiveIndexer() {
 
   useEffect(() => {
     if (!listening) {
-      const events = new EventSource("http://localhost:3001/events");
+      const events = new EventSource(API.LIVE_EVENTS);
 
       events.onmessage = (event) => {
         // console.log(event);
@@ -57,7 +60,7 @@ export default function LiveIndexer() {
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <StyledTableCell>Block #</StyledTableCell>
+              <StyledTableCell align="center">Block #</StyledTableCell>
               <StyledTableCell align="right">Timestamp</StyledTableCell>
               <StyledTableCell align="right">Transaction Count</StyledTableCell>
             </TableRow>
@@ -65,23 +68,41 @@ export default function LiveIndexer() {
           <TableBody>
             {console.log(blocks)}
             {blocks &&
-              blocks.reverse().map((block) => (
-                <StyledTableRow
-                  key={block.number}
-                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                >
-                  <StyledTableCell align="left">{block.number}</StyledTableCell>
-                  <StyledTableCell align="right">
-                    <ReactTimeAgo
-                      date={parseInt(block.timestamp) * 1000}
-                      locale="en-US"
-                    />
-                  </StyledTableCell>
-                  <StyledTableCell align="right">
-                    {block.transactions.length}
-                  </StyledTableCell>
-                </StyledTableRow>
-              ))}
+              blocks.reverse().map((block) => {
+                return (
+                  block &&
+                  Object.keys(block).length > 0 && (
+                    <StyledTableRow
+                      key={block.number}
+                      sx={{
+                        "&:last-child td, &:last-child th": { border: 0 },
+                      }}
+                    >
+                      <StyledTableCell align="center">
+                        <div
+                          style={{
+                            alignItems: "center",
+                            justifyContent: "center",
+                            display: "flex",
+                          }}
+                        >
+                          <ViewInArIcon />
+                          {block.number}
+                        </div>
+                      </StyledTableCell>
+                      <StyledTableCell align="right">
+                        <ReactTimeAgo
+                          date={parseInt(block.timestamp) * 1000}
+                          locale="en-US"
+                        />
+                      </StyledTableCell>
+                      <StyledTableCell align="right">
+                        {block.transactions.length}
+                      </StyledTableCell>
+                    </StyledTableRow>
+                  )
+                );
+              })}
           </TableBody>
         </Table>
       </TableContainer>

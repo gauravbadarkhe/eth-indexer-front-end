@@ -2,13 +2,17 @@
 
 # Steps Needed to Build This
 
-- [x] GraphQL Setup.
+
 - [x] MUI Library Setup.
 - [x] Dashboard Page
 - [x] Blocks Page
-- [x] Transactions Page
+- [x] Live Chain Updates
+- [x] Stats Page
+- [ ] Transactions Page
 
-# Lets start with our graphql setup
+# Done Hosted at [https://eth-indexer-front-end.vercel.app/](https://eth-indexer-front-end.vercel.app/)
+We have a verrry bad looking but functional indexer ui.
+
 
 <!--
 # Getting Started with Create React App
